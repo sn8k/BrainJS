@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body class="<%= bodyClass %>">
+  <div class="sidebar">
+    <div class="sidebar-toggle">
+      <span class="menu-icon" id="menuIcon">&#9776;</span>
+    </div>
+    <div class="sidebar-content">
+      <h2>BrainJS</h2>
+      <ul>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/maintenance">Maintenance</a></li>
+        <li><a href="/modules">Modules</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="toggle-dark-mode light" id="toggleDarkMode"></div>
+    <%- include(view) %>
+  </div>
+  <script>
+    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+    const bodyElement = document.body;
+    const menuIcon = document.getElementById('menuIcon');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+
+    toggleDarkModeButton.addEventListener('click', () => {
+      bodyElement.classList.toggle('dark-mode');
+      if (bodyElement.classList.contains('dark-mode')) {
+        toggleDarkModeButton.classList.remove('light');
+        toggleDarkModeButton.classList.add('dark');
+      } else {
+        toggleDarkModeButton.classList.remove('dark');
+        toggleDarkModeButton.classList.add('light');
+      }
+    });
+
+    menuIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('expanded');
+    });
+
+    // Load theme from local storage
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        bodyElement.classList.add('dark-mode');
+        toggleDarkModeButton.classList.remove('light');
+        toggleDarkModeButton.classList.add('dark');
+      }
+    });
+
+    // Save theme to local storage
+    toggleDarkModeButton.addEventListener('click', () => {
+      if (bodyElement.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.removeItem('theme');
+      }
+    });
+  </script>
+</body>
+</html>

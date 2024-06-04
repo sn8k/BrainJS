@@ -1,0 +1,9 @@
+<div class="container mt-5">
+    <h1>Installed Modules</h1>
+    <ul>
+      <% modules.forEach(module => { %>
+        <li><a href="/modules/<%= module %>"><%= module %></a></li>
+      <% }) %>
+    </ul>
+  </div>
+  
