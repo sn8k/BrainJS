@@ -8,6 +8,12 @@ import numpy as np
 from json.decoder import JSONDecodeError
 
 def initialize_data(data_path):
+    """
+    Initialise les données de base pour l'application.
+    
+    Args:
+        data_path (str): Le chemin vers le fichier de données.
+    """
     data = {
         'neurons': [{'id': i, 'name': f'neuron{i}', 'state': np.random.rand()} for i in range(1, 101)],  # Initialisation de 100 neurones avec des états aléatoires
         'functions': [{'id': i, 'name': f'function{i}'} for i in range(1, 21)],  # Initialisation de 20 fonctions
@@ -27,6 +33,15 @@ def initialize_data(data_path):
         json.dump(data, f)
 
 def load_data(data_path):
+    """
+    Charge les données à partir d'un fichier JSON.
+    
+    Args:
+        data_path (str): Le chemin vers le fichier de données.
+        
+    Returns:
+        dict: Les données chargées du fichier JSON.
+    """
     try:
         with open(data_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -35,12 +50,28 @@ def load_data(data_path):
         return {}
 
 def update_data(data_path, key, value):
+    """
+    Met à jour les données en ajoutant une nouvelle valeur à une clé spécifique.
+    
+    Args:
+        data_path (str): Le chemin vers le fichier de données.
+        key (str): La clé des données à mettre à jour.
+        value: La valeur à ajouter.
+    """
     data = load_data(data_path)
     data[key].append(value)
     with open(data_path, 'w') as f:
         json.dump(data, f)
 
 def update_performance_metrics(data_path, accuracy, loss):
+    """
+    Met à jour les métriques de performance dans les données.
+    
+    Args:
+        data_path (str): Le chemin vers le fichier de données.
+        accuracy (float): La nouvelle valeur de l'exactitude.
+        loss (float): La nouvelle valeur de la perte.
+    """
     data = load_data(data_path)
     data['performance_metrics'] = {'accuracy': accuracy, 'loss': loss}
     with open(data_path, 'w') as f:
