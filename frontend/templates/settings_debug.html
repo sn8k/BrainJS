@@ -1,0 +1,69 @@
+<!-- settings_debug.html - Version 1.1 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h1>Debug Settings</h1>
+
+<!-- Effacer les logs -->
+<div class="debug-section">
+    <h2>Effacer les logs</h2>
+    <form id="clearLogsForm" method="post" action="{{ url_for('settings_debug.debug') }}">
+        <input type="hidden" name="clear_logs" value="1">
+        <button type="submit" class="btn btn-danger">Effacer les logs</button>
+    </form>
+</div>
+
+<!-- Effacer les données -->
+<div class="debug-section">
+    <h2>Effacer les données</h2>
+    <form id="clearDataForm" method="post" action="{{ url_for('settings_debug.debug') }}">
+        <input type="hidden" name="clear_memory" value="1">
+        <button type="submit" class="btn btn-danger">Effacer les données</button>
+    </form>
+</div>
+
+<!-- Effacer les logs et les données -->
+<div class="debug-section">
+    <h2>Effacer les logs et les données</h2>
+    <form id="fullResetForm" method="post" action="{{ url_for('settings_debug.debug') }}">
+        <input type="hidden" name="full_reset" value="1">
+        <button type="submit" class="btn btn-danger">Effacer les logs et les données</button>
+    </form>
+</div>
+
+<!-- Redémarrer le serveur -->
+<div class="debug-section">
+    <h2>Redémarrer le serveur</h2>
+    <form id="restartServerForm" method="post" action="{{ url_for('settings_debug.restart_server') }}">
+        <button type="submit" class="btn btn-warning">Redémarrer le serveur</button>
+    </form>
+</div>
+
+<!-- Voir l'état du réseau -->
+<div class="debug-section">
+    <h2>Voir l'état du réseau</h2>
+    <button class="btn btn-info" onclick="checkNetworkStatus()">Voir l'état du réseau</button>
+    <div id="networkStatus"></div>
+</div>
+
+<!-- Voir les statistiques -->
+<div class="debug-section">
+    <h2>Voir les statistiques</h2>
+    <button class="btn btn-info" onclick="updateStats()">Voir les statistiques</button>
+    <div id="stats">
+        <p>Neurones: <span id="neurons-count"></span></p>
+        <p>Fonctions apprises: <span id="functions-learned-count"></span></p>
+    </div>
+</div>
+
+<!-- Fix absl Metrics -->
+<div class="debug-section">
+    <h2>Fix absl Metrics</h2>
+    <form id="fixAbslMetricsForm" method="post" action="{{ url_for('settings_debug.fix_absl_metrics') }}">
+        <button type="submit" class="btn btn-info">Fix absl Metrics</button>
+    </form>
+</div>
+
+{% endblock %}
+
+<!-- Fin du fichier settings_debug.html - Version 1.1 -->

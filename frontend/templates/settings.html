@@ -1,0 +1,17 @@
+<!-- settings.html - Version 1.13 -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="sidebar">
+    <ul>
+        <li><a href="{{ url_for('settings.general') }}">General</a></li>
+        <li><a href="{{ url_for('settings.neural_network') }}">Neural Network</a></li>
+        <li><a href="{{ url_for('settings.video_sources') }}">Video Sources</a></li>
+        <li><a href="{{ url_for('settings.database') }}">Database</a></li>
+        <li><a href="{{ url_for('settings.project') }}">Project Management</a></li>
+    </ul>
+</div>
+<div class="content">
+    {% block settings_content %}{% endblock %}
+</div>
+{% endblock %}

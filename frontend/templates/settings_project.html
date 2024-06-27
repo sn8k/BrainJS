@@ -1,0 +1,14 @@
+<!-- settings_project.html - Version 1.1 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h2>Stop Project</h2>
+<form method="POST" action="{{ url_for('settings_project.project') }}">
+    <button type="submit" name="stop_project" class="btn btn-danger">Stop Project</button>
+</form>
+
+<h2>Restart Project</h2>
+<form method="POST" action="{{ url_for('settings_project.project') }}">
+    <button type="submit" name="restart_project" class="btn btn-warning">Restart Project</button>
+</form>
+{% endblock %}

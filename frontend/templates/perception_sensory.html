@@ -1,0 +1,38 @@
+<!-- perception_sensory.html - Version 1.1 -->
+<!-- Emplacement: frontend/templates/perception_sensory.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Perception & Sensory</h1>
+<p>This section allows you to manage the perception and sensory functions of the brain model.</p>
+<button id="process-vision">Process Vision</button>
+<button id="process-audition">Process Audition</button>
+<script>
+document.getElementById('process-vision').onclick = function() {
+    fetch('/perception-sensory/vision', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image_path: 'path/to/image.jpg' }),
+    })
+    .then(response => response.json())
+    .then(data => alert(data.status))
+    .catch(error => console.error('Error:', error));
+};
+
+document.getElementById('process-audition').onclick = function() {
+    fetch('/perception-sensory/audition', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ audio_path: 'path/to/audio.wav' }),
+    })
+    .then(response => response.json())
+    .then(data => alert(data.status))
+    .catch(error => console.error('Error:', error));
+};
+</script>
+{% endblock %}

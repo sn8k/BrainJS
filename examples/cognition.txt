@@ -1,0 +1,171 @@
+Voici des exemples de fichiers ou de demandes pour chaque item de la page "Cognition & Decision" afin de tester les fonctionnalités :
+
+1. Decision Making
+Pour tester la prise de décision avec les algorithmes A* et Dijkstra, vous pouvez envoyer une requête POST avec des données appropriées.
+
+Exemple de requête POST pour make_decision:
+json
+Copier le code
+{
+    "input": {
+        "method": "astar",
+        "start": [0, 0],
+        "goal": [2, 2],
+        "graph": {
+            "[0, 0]": {"[1, 0]": 1, "[0, 1]": 1},
+            "[1, 0]": {"[2, 0]": 1, "[1, 1]": 1, "[0, 0]": 1},
+            "[0, 1]": {"[1, 1]": 1, "[0, 0]": 1},
+            "[1, 1]": {"[2, 1]": 1, "[1, 0]": 1, "[0, 1]": 1},
+            "[2, 0]": {"[2, 1]": 1, "[1, 0]": 1},
+            "[2, 1]": {"[2, 2]": 1, "[1, 1]": 1, "[2, 0]": 1},
+            "[2, 2]": {"[2, 1]": 1}
+        }
+    }
+}
+2. Problem Solving
+Pour tester la résolution de problème avec les algorithmes A* et Dijkstra, envoyez une requête POST avec des données de problème.
+
+Exemple de requête POST pour solve_problem:
+json
+Copier le code
+{
+    "algorithm": "dijkstra",
+    "problem_data": {
+        "start": [0, 0],
+        "goal": [2, 2],
+        "graph": {
+            "[0, 0]": {"[1, 0]": 1, "[0, 1]": 1},
+            "[1, 0]": {"[2, 0]": 1, "[1, 1]": 1, "[0, 0]": 1},
+            "[0, 1]": {"[1, 1]": 1, "[0, 0]": 1},
+            "[1, 1]": {"[2, 1]": 1, "[1, 0]": 1, "[0, 1]": 1},
+            "[2, 0]": {"[2, 1]": 1, "[1, 0]": 1},
+            "[2, 1]": {"[2, 2]": 1, "[1, 1]": 1, "[2, 0]": 1},
+            "[2, 2]": {"[2, 1]": 1}
+        }
+    }
+}
+3. Learning
+Pour tester l'apprentissage, envoyez une requête POST avec des données d'apprentissage.
+
+Exemple de requête POST pour learn:
+json
+Copier le code
+{
+    "learning_input": {
+        "features": [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5]
+        ],
+        "labels": [0, 0, 1, 1]
+    }
+}
+4. Pattern Recognition
+Pour tester la reconnaissance de motifs, envoyez une requête POST avec des données de reconnaissance de motifs.
+
+Exemple de requête POST pour recognize_pattern:
+json
+Copier le code
+{
+    "pattern_input": {
+        "features": [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5]
+        ]
+    }
+}
+Utilisation de cURL pour tester les endpoints
+Vous pouvez utiliser les commandes cURL suivantes pour tester les fonctionnalités :
+
+Decision Making (A*)
+sh
+Copier le code
+curl -X POST http://127.0.0.1:5000/cognition_decision/make_decision -H "Content-Type: application/json" -d '{"input": {"method": "astar", "start": [0, 0], "goal": [2, 2], "graph": {"[0, 0]": {"[1, 0]": 1, "[0, 1]": 1}, "[1, 0]": {"[2, 0]": 1, "[1, 1]": 1, "[0, 0]": 1}, "[0, 1]": {"[1, 1]": 1, "[0, 0]": 1}, "[1, 1]": {"[2, 1]": 1, "[1, 0]": 1, "[0, 1]": 1}, "[2, 0]": {"[2, 1]": 1, "[1, 0]": 1}, "[2, 1]": {"[2, 2]": 1, "[1, 1]": 1, "[2, 0]": 1}, "[2, 2]": {"[2, 1]": 1}}}}'
+Problem Solving (Dijkstra)
+sh
+Copier le code
+curl -X POST http://127.0.0.1:5000/cognition_decision/solve_problem -H "Content-Type: application/json" -d '{"algorithm": "dijkstra", "problem_data": {"start": [0, 0], "goal": [2, 2], "graph": {"[0, 0]": {"[1, 0]": 1, "[0, 1]": 1}, "[1, 0]": {"[2, 0]": 1, "[1, 1]": 1, "[0, 0]": 1}, "[0, 1]": {"[1, 1]": 1, "[0, 0]": 1}, "[1, 1]": {"[2, 1]": 1, "[1, 0]": 1, "[0, 1]": 1}, "[2, 0]": {"[2, 1]": 1, "[1, 0]": 1}, "[2, 1]": {"[2, 2]": 1, "[1, 1]": 1, "[2, 0]": 1}, "[2, 2]": {"[2, 1]": 1}}}}'
+Learning
+sh
+Copier le code
+curl -X POST http://127.0.0.1:5000/cognition_decision/learn -H "Content-Type: application/json" -d '{"learning_input": {"features": [[1, 2], [2, 3], [3, 4], [4, 5]], "labels": [0, 0, 1, 1]}}'
+Pattern Recognition
+sh
+Copier le code
+curl -X POST http://127.0.0.1:5000/cognition_decision/recognize_pattern -H "Content-Type: application/json" -d '{"pattern_input": {"features": [[1, 2], [2, 3], [3, 4], [4, 5]]}}'
+Ajout des Routes dans cognition_decision.py
+Assurez-vous que les routes pour l'apprentissage et la reconnaissance de motifs sont ajoutées dans cognition_decision.py :
+
+python
+Copier le code
+# cognition_decision.py - Version 1.7
+# Emplacement: backend/routes/cognition_decision.py
+
+from flask import Blueprint, render_template, request, jsonify
+from backend.brain_model import BrainModel
+from backend.models import NeuralData, db
+from datetime import datetime
+import json
+from some_problem_solving_module import solve_astar, solve_dijkstra  # Vous devrez implémenter ou inclure ces modules
+
+cognition_decision_bp = Blueprint('cognition_decision', __name__)
+
+brain = BrainModel()
+
+@cognition_decision_bp.route('/')
+def index():
+    return render_template('cognition_decision.html')
+
+@cognition_decision_bp.route('/make_decision', methods=['POST'])
+def make_decision():
+    data = request.json
+    decision_input = data.get('input')
+    if decision_input:
+        result = brain.make_decision(decision_input)
+        
+        neural_data = NeuralData(data_type='decision', data=json.dumps(data), timestamp=datetime.utcnow())
+        db.session.add(neural_data)
+        db.session.commit()
+        
+        return jsonify(result)
+    return jsonify({'status': 'Input required'}), 400
+
+@cognition_decision_bp.route('/solve_problem', methods=['POST'])
+def solve_problem():
+    data = request.json
+    algorithm = data.get('algorithm')
+    problem_data = data.get('problem_data')
+    
+    if algorithm == 'astar':
+        result = solve_astar(problem_data)
+    elif algorithm == 'dijkstra':
+        result = solve_dijkstra(problem_data)
+    else:
+        return jsonify({'error': 'Algorithme invalide'}), 400
+    
+    return jsonify({'result': result})
+
+@cognition_decision_bp.route('/learn', methods=['POST'])
+def learn():
+    data = request.json
+    learning_input = data.get('learning_input')
+    if learning_input:
+        result = brain.learn(learning_input)
+        return jsonify(result)
+    return jsonify({'status': 'Input required'}), 400
+
+@cognition_decision_bp.route('/recognize_pattern', methods=['POST'])
+def recognize_pattern():
+    data = request.json
+    pattern_input = data.get('pattern_input')
+    if pattern_input:
+        result = brain.recognize_pattern(pattern_input)
+        return jsonify(result)
+    return jsonify({'status': 'Input required'}), 400
+
+# Fin du fichier cognition_decision.py - Version 1.7
+Test de l'API
+Utilisez les exemples de requêtes mentionnés ci-dessus pour tester les différentes fonctionnalités de l'API après avoir démarré le serveur Flask.

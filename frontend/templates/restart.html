@@ -1,0 +1,14 @@
+<!-- restart.html - Version 1.0 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Redémarrage en cours...</h1>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+</div>
+<script>
+    setTimeout(function(){
+        window.location.href = "/";
+    }, 10000);  // Adjust the timeout as needed
+</script>
+{% endblock %}

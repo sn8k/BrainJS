@@ -1,0 +1,38 @@
+<!-- learning_memory.html - Version 1.1 -->
+<!-- Emplacement: frontend/templates/learning_memory.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Learning & Memory</h1>
+<p>This section allows you to manage the learning and memory functions of the brain model.</p>
+<button id="store-short-term-memory">Store Short Term Memory</button>
+<button id="store-long-term-memory">Store Long Term Memory</button>
+<script>
+document.getElementById('store-short-term-memory').onclick = function() {
+    fetch('/learning-memory/short-term-memory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ memory: 'sample short term memory data' }),
+    })
+    .then(response => response.json())
+    .then(data => alert(data.status))
+    .catch(error => console.error('Error:', error));
+};
+
+document.getElementById('store-long-term-memory').onclick = function() {
+    fetch('/learning-memory/long-term-memory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ memory: 'sample long term memory data' }),
+    })
+    .then(response => response.json())
+    .then(data => alert(data.status))
+    .catch(error => console.error('Error:', error));
+};
+</script>
+{% endblock %}

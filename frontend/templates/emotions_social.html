@@ -1,0 +1,59 @@
+<!-- emotions_social.html - Version 1.2 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Emotions & Social</h1>
+
+<div>
+    <h2>Chatbot</h2>
+    <form id="chat-form">
+        <input type="text" id="message" name="message" placeholder="Enter your message...">
+        <button type="submit">Send</button>
+    </form>
+    <div id="chat-response"></div>
+</div>
+
+<div>
+    <h2>Discord Integration</h2>
+    <form id="discord-form">
+        <input type="text" id="discord-message" name="discord-message" placeholder="Enter your message for Discord...">
+        <button type="submit">Send to Discord</button>
+    </form>
+    <div id="discord-response"></div>
+</div>
+
+<script>
+document.getElementById('chat-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const message = document.getElementById('message').value;
+    fetch('/emotions_social', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({message: message})
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('chat-response').innerText = data.response;
+    });
+});
+
+document.getElementById('discord-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const message = document.getElementById('discord-message').value;
+    fetch('/emotions_social/discord', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({message: message})
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('discord-response').innerText = data.response;
+    });
+});
+</script>
+
+{% endblock %}

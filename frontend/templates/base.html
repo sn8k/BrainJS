@@ -1,0 +1,48 @@
+<!-- base.html - Version 2.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainV4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('neurons_connections.index') }}">Neurons & Connections</a></li>
+                <li><a href="{{ url_for('learning_memory.index') }}">Learning & Memory</a></li>
+                <li><a href="{{ url_for('perception_sensory.index') }}">Perception & Sensory</a></li>
+                <li><a href="{{ url_for('cognition_decision.index') }}">Cognition & Decision</a></li>
+                <li><a href="{{ url_for('emotions_social.index') }}">Emotions & Social</a></li>
+                <li><a href="{{ url_for('language_communication.index') }}">Language & Communication</a></li>
+                <li><a href="{{ url_for('view.index') }}">View</a></li>
+                <li><a href="{{ url_for('file_learning.index') }}">Apprentissage par Fichiers</a></li>
+                <li><a href="{{ url_for('network.index') }}">Réseau</a></li>
+                <li><a href="{{ url_for('logs_monitoring.index') }}">Logs & Monitoring</a></li>
+                <li>
+                    <a href="#">Settings</a>
+                    <ul>
+                        <li><a href="{{ url_for('settings_general.general') }}">General</a></li>
+                        <li><a href="{{ url_for('settings_neural_network.neural_network') }}">Neural Network</a></li>
+                        <li><a href="{{ url_for('settings_video_sources.video_sources') }}">Video Sources</a></li>
+                        <li><a href="{{ url_for('settings_database.database') }}">Database</a></li>
+                        <li><a href="{{ url_for('settings_debug.debug') }}">Debug</a></li>
+                        <li><a href="{{ url_for('settings_folders.folders') }}">Dossiers</a></li>
+                    </ul>
+                </li>
+            <li><a href="{{ url_for('settings.stop_project') }}">Stopper le projet</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>
+<!-- Fin du fichier base.html - Version 2.0 -->

@@ -1,0 +1,33 @@
+<!-- settings_video_sources.html - Version 1.1 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h2>Manage Video Sources</h2>
+<form method="POST" action="{{ url_for('settings_video_sources.video_sources') }}">
+    <div class="form-group">
+        <label for="new_source">Add New Video Source:</label>
+        <input type="text" id="new_source" name="new_source" class="form-control">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
+<form method="POST" action="{{ url_for('settings_video_sources.video_sources') }}">
+    <div class="form-group">
+        <label for="remove_source">Remove Video Source:</label>
+        <select name="remove_source" id="remove_source" class="form-control">
+            {% for source in config.video_sources %}
+                <option value="{{ source }}">{{ source }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-danger">Remove</button>
+    </div>
+</form>
+<form method="POST" action="{{ url_for('settings_video_sources.video_sources') }}">
+    <label for="selected_source">Select Video Source:</label>
+    <select name="selected_source" id="selected_source" class="form-control">
+        {% for source in config.video_sources %}
+            <option value="{{ source }}" {% if source == config.selected_source %}selected{% endif %}>{{ source }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary">Update Source</button>
+</form>
+{% endblock %}

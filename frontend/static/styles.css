@@ -1,0 +1,138 @@
+/* styles.css - Version 1.3
+Emplacement: frontend/static/styles.css */
+
+/* Importation de Bootstrap */
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+/* Style de la barre latérale */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #343a40;
+    color: #fff;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    color: #ccc;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    color: #fff;
+}
+
+.sidebar .active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+/* Style des boutons */
+.btn-custom {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+/* Style des cartes */
+.card-custom {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Style des indicateurs de statut */
+.status-ok {
+    color: green;
+    font-weight: bold;
+}
+
+.status-ko {
+    color: red;
+    font-weight: bold;
+}
+
+/* Style des tableaux */
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table-custom th,
+.table-custom td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-custom th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Style des logs */
+.log-container {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+/* Style des formulaires */
+.form-control-custom {
+    margin-bottom: 15px;
+}
+
+/* Style des sous-menus */
+.submenu {
+    margin-top: 20px;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.submenu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.submenu ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.content-section {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.content-section h2 {
+    margin-top: 0;
+}
+
+/* Fin du fichier styles.css - Version 1.3 */

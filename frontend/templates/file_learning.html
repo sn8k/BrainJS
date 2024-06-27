@@ -1,0 +1,51 @@
+<!-- file_learning.html - Version 1.3 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Apprentissage par fichiers</h1>
+
+<h2>Uploader un fichier</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">Choisir un fichier :</label>
+        <input type="file" name="file" id="file" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Télécharger</button>
+</form>
+
+<h2>Créer un nouveau modèle</h2>
+<form method="POST" action="{{ url_for('file_learning.create_model') }}">
+    <div class="form-group">
+        <label for="input_dim">Dimension d'entrée :</label>
+        <input type="number" name="input_dim" id="input_dim" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="hidden_layers">Nombre de couches cachées :</label>
+        <input type="number" name="hidden_layers" id="hidden_layers" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="hidden_units">Unités par couche cachée :</label>
+        <input type="number" name="hidden_units" id="hidden_units" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Créer le modèle</button>
+</form>
+
+<h2>Charger un modèle</h2>
+<form method="POST" action="{{ url_for('file_learning.load_model_route') }}">
+    <div class="form-group">
+        <label for="model_file">Choisir un modèle :</label>
+        <input type="file" name="model_file" id="model_file" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Charger le modèle</button>
+</form>
+
+<h2>Modèle chargé</h2>
+<div>
+    {% if model_loaded %}
+        <p>Modèle chargé : {{ model_name }}</p>
+    {% else %}
+        <p>Aucun modèle chargé</p>
+    {% endif %}
+</div>
+
+{% endblock %}

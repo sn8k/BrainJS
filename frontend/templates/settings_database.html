@@ -1,0 +1,16 @@
+<!-- settings_database.html - Version 1.1 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h2>Database Backup and Restore</h2>
+<form method="GET" action="{{ url_for('settings_database.backup_db') }}">
+    <button type="submit" class="btn btn-primary">Backup Database</button>
+</form>
+<form method="POST" action="{{ url_for('settings_database.restore_db') }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="backup_file">Select Backup File to Restore:</label>
+        <input type="file" name="backup_file" id="backup_file" class="form-control-file">
+    </div>
+    <button type="submit" class="btn btn-warning">Restore Database</button>
+</form>
+{% endblock %}

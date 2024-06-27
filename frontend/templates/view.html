@@ -1,0 +1,70 @@
+<!-- view.html - Version 1.6 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Vue</h2>
+<form method="post" action="{{ url_for('view.index') }}">
+    <label for="video_url">Video URL:</label>
+    <input type="text" id="video_url" name="video_url">
+    <button type="submit">Add Video</button>
+</form>
+<form method="post" action="{{ url_for('view.index') }}">
+    <button type="submit" name="start_webcam">Start Webcam</button>
+</form>
+<form method="post" action="{{ url_for('view.stop_webcam') }}">
+    <button type="submit">Stop Webcam</button>
+</form>
+<form method="post" action="{{ url_for('view.index') }}">
+    <button type="submit" name="auto_learn">
+        {{ 'Stop Auto-apprentissage' if auto_learn else 'Start Auto-apprentissage' }}
+    </button>
+</form>
+<form method="post" action="{{ url_for('view.index') }}">
+    <label for="selected_source">Select Video Source:</label>
+    <select name="selected_source" id="selected_source">
+        {% for source in video_sources %}
+            <option value="{{ source }}" {% if source == selected_source %}selected{% endif %}>{{ source }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Update Source</button>
+</form>
+<div id="video-preview">
+    <h3>Aperçu en direct</h3>
+    <img id="video-stream" src="{{ url_for('view.video_feed') }}" alt="Live video feed">
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const startWebcamButton = document.querySelector('button[name="start_webcam"]');
+        const videoStream = document.getElementById('video-stream');
+
+        startWebcamButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                alert('Votre navigateur ne supporte pas l\'API mediaDevices.');
+                return;
+            }
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+            let deviceId = null;
+            if (videoDevices.length > 1) {
+                deviceId = prompt('Choisissez un appareil vidéo', videoDevices.map(device => device.label).join('\n'));
+                const selectedDevice = videoDevices.find(device => device.label === deviceId);
+                if (selectedDevice) {
+                    deviceId = selectedDevice.deviceId;
+                }
+            } else if (videoDevices.length === 1) {
+                deviceId = videoDevices[0].deviceId;
+            } else {
+                alert('Aucun appareil vidéo trouvé.');
+                return;
+            }
+
+            if (deviceId) {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: deviceId } } });
+                videoStream.srcObject = stream;
+            }
+        });
+    });
+</script>
+{% endblock %}

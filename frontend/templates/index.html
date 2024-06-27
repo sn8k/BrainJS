@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Brain Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Brain Dashboard</h2>
+        <a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+        <a href="{{ url_for('neurons_connections.index') }}">Neurons & Connections</a>
+        <a href="{{ url_for('learning_memory.index') }}">Learning & Memory</a>
+        <a href="{{ url_for('perception_sensory.index') }}">Perception & Sensory</a>
+        <a href="{{ url_for('cognition_decision.index') }}">Cognition & Decision</a>
+        <a href="{{ url_for('emotions_social.index') }}">Emotions & Social</a>
+        <a href="{{ url_for('language_communication.index') }}">Language & Communication</a>
+        <a href="{{ url_for('logs_monitoring.index') }}">Logs & Monitoring</a>
+        <a href="{{ url_for('settings.index') }}">Settings</a>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

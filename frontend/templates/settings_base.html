@@ -1,0 +1,21 @@
+<!-- settings_base.html - Version 1.1 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Settings</h1>
+<div class="settings-menu">
+    <ul>
+        <li><a href="{{ url_for('settings_general.general') }}">General</a></li>
+        <li><a href="{{ url_for('settings_neural_network.neural_network') }}">Neural Network</a></li>
+        <li><a href="{{ url_for('settings_video_sources.video_sources') }}">Video Sources</a></li>
+        <li><a href="{{ url_for('settings_database.database') }}">Database</a></li>
+        <li><a href="{{ url_for('settings_debug.debug') }}">Debug</a></li>
+        <li><a href="{{ url_for('settings.stop_project') }}">Stop Project</a></li>
+    </ul>
+</div>
+
+<div class="settings-content">
+    {% block settings_content %}
+    {% endblock %}
+</div>
+{% endblock %}

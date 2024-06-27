@@ -1,0 +1,97 @@
+<!-- cognition_decision.html - Version 1.7 -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <nav>
+            <ul>
+                <li><a href="#decision_making">Decision Making</a></li>
+                <li><a href="#problem_solving">Problem Solving</a></li>
+                <li><a href="#learning">Learning</a></li>
+                <li><a href="#pattern_recognition">Pattern Recognition</a></li>
+                <li><a href="#lstm_training">LSTM Training</a></li>
+                <li><a href="#lstm_prediction">LSTM Prediction</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9">
+        <h1>Cognition & Decision</h1>
+        <p>Information about cognitive processes and decision making.</p>
+
+        <!-- Sections de contenu -->
+        <div id="decision_making" class="content-section">
+            <h2>Decision Making</h2>
+            <p>Implement algorithms such as A* and Dijkstra's for decision making.</p>
+            <!-- Formulaire pour entrer des données de décision -->
+            <form id="decisionForm">
+                <label for="decisionInput">Enter decision input:</label>
+                <input type="text" id="decisionInput" name="decisionInput" class="form-control">
+                <button type="button" onclick="submitDecision()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="decisionResult" class="mt-3"></div>
+        </div>
+
+        <div id="problem_solving" class="content-section">
+            <h2>Problem Solving</h2>
+            <p>Use algorithms and models to solve complex problems.</p>
+            <!-- Formulaire pour entrer des données de résolution de problème -->
+            <form id="problemForm">
+                <label for="problemInput">Enter problem input:</label>
+                <input type="text" id="problemInput" name="problemInput" class="form-control">
+                <button type="button" onclick="submitProblem()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="problemResult" class="mt-3"></div>
+        </div>
+
+        <div id="learning" class="content-section">
+            <h2>Learning</h2>
+            <p>Implement learning algorithms to adapt and improve.</p>
+            <!-- Formulaire pour entrer des données d'apprentissage -->
+            <form id="learningForm">
+                <label for="learningInput">Enter learning input:</label>
+                <input type="text" id="learningInput" name="learningInput" class="form-control">
+                <button type="button" onclick="submitLearning()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="learningResult" class="mt-3"></div>
+        </div>
+
+        <div id="pattern_recognition" class="content-section">
+            <h2>Pattern Recognition</h2>
+            <p>Use pattern recognition techniques to identify patterns and make predictions.</p>
+            <!-- Formulaire pour entrer des données de reconnaissance de motifs -->
+            <form id="patternForm">
+                <label for="patternInput">Enter pattern input:</label>
+                <input type="text" id="patternInput" name="patternInput" class="form-control">
+                <button type="button" onclick="submitPattern()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="patternResult" class="mt-3"></div>
+        </div>
+
+        <div id="lstm_training" class="content-section">
+            <h2>LSTM Training</h2>
+            <p>Train the LSTM model with temporal data.</p>
+            <!-- Formulaire pour entrer des données d'entraînement LSTM -->
+            <form id="trainLSTMForm">
+                <label for="trainLSTMInput">Enter LSTM training input:</label>
+                <input type="text" id="trainLSTMInput" name="trainLSTMInput" class="form-control">
+                <button type="button" onclick="trainLSTM()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="trainLSTMResult" class="mt-3"></div>
+        </div>
+
+        <div id="lstm_prediction" class="content-section">
+            <h2>LSTM Prediction</h2>
+            <p>Make predictions with the trained LSTM model.</p>
+            <!-- Formulaire pour entrer des données de prédiction LSTM -->
+            <form id="predictLSTMForm">
+                <label for="predictLSTMInput">Enter LSTM prediction input:</label>
+                <input type="text" id="predictLSTMInput" name="predictLSTMInput" class="form-control">
+                <button type="button" onclick="predictLSTM()" class="btn btn-primary mt-2">Submit</button>
+            </form>
+            <div id="predictLSTMResult" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Fin du fichier cognition_decision.html - Version 1.7 -->

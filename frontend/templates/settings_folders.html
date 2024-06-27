@@ -1,0 +1,29 @@
+<!-- settings_folders.html - Version 1.2 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h2>Folders Settings</h2>
+<form method="POST" action="{{ url_for('settings_folders.folders') }}">
+    <div>
+        <label>Data Directory:</label>
+        <p>{{ config.full_data_dir }}</p>
+        <input type="text" name="data_dir" value="{{ config.data_dir }}">
+    </div>
+    <div>
+        <label>Log Directory:</label>
+        <p>{{ config.full_log_dir }}</p>
+        <input type="text" name="log_dir" value="{{ config.log_dir }}">
+    </div>
+    <div>
+        <label>Model Directory:</label>
+        <p>{{ config.full_model_dir }}</p>
+        <input type="text" name="model_dir" value="{{ config.model_dir }}">
+    </div>
+    <div>
+        <label>Upload Directory:</label>
+        <p>{{ config.full_upload_dir }}</p>
+        <input type="text" name="upload_dir" value="{{ config.upload_dir }}">
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

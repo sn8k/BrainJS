@@ -1,0 +1,78 @@
+<!-- neurons_connections.html - Version 1.5 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Neurons Connections</h1>
+
+<div class="section">
+    <h3>Neurons List</h3>
+    <ul>
+        {% for neuron in neurons %}
+            <li>{{ neuron.name }} (ID: {{ neuron.id }})</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>Connections</h3>
+    <ul>
+        {% for link in connections.links %}
+            <li>Source: {{ link.source }}, Target: {{ link.target }}, Weight: {{ link.value }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>Add Connection</h3>
+    <form method="POST" action="{{ url_for('neurons_connections.add_connection') }}">
+        <div>
+            <label for="source_id">Source ID:</label>
+            <input type="text" id="source_id" name="source_id" required>
+        </div>
+        <div>
+            <label for="target_id">Target ID:</label>
+            <input type="text" id="target_id" name="target_id" required>
+        </div>
+        <div>
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="weight" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Connection</button>
+    </form>
+</div>
+
+<div class="section">
+    <h3>3D Neural Network Visualization</h3>
+    <div id="3d-graph"></div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.62.2/dist/3d-force-graph.min.js"></script>
+<script>
+    const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
+        .graphData({{ connections | tojson }})
+        .nodeAutoColorBy('group')
+        .linkOpacity(0.5)
+        .nodeThreeObject(node => {
+            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                map: new THREE.CanvasTexture(generateNodeLabel(node.name)),
+                depthWrite: false,
+                depthTest: false
+            }));
+            sprite.scale.set(12, 12, 1);
+            return sprite;
+        });
+
+    function generateNodeLabel(label) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        context.font = '12px Arial';
+        context.fillStyle = 'black';
+        context.fillText(label, 0, 10);
+        return canvas;
+    }
+</script>
+{% endblock %}

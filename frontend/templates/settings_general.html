@@ -1,0 +1,31 @@
+<!-- settings_general.html - Version 1.2 -->
+{% extends "settings_base.html" %}
+
+{% block settings_content %}
+<h2>General Settings</h2>
+<form method="POST" action="{{ url_for('settings_general.general') }}">
+    <div class="form-group">
+        <label for="verbosity_level">Verbosity Level</label>
+        <select name="verbosity_level" id="verbosity_level" class="form-control">
+            <option value="DEBUG" {% if config.verbosity_level == "DEBUG" %}selected{% endif %}>DEBUG</option>
+            <option value="INFO" {% if config.verbosity_level == "INFO" %}selected{% endif %}>INFO</option>
+            <option value="WARNING" {% if config.verbosity_level == "WARNING" %}selected{% endif %}>WARNING</option>
+            <option value="ERROR" {% if config.verbosity_level == "ERROR" %}selected{% endif %}>ERROR</option>
+            <option value="CRITICAL" {% if config.verbosity_level == "CRITICAL" %}selected{% endif %}>CRITICAL</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="discord_token">Discord Token</label>
+        <input type="text" name="discord_token" id="discord_token" class="form-control" value="{{ config.discord_token }}">
+    </div>
+    <div class="form-group">
+        <label for="discord_channel_id">Discord Channel ID</label>
+        <input type="text" name="discord_channel_id" id="discord_channel_id" class="form-control" value="{{ config.discord_channel_id }}">
+    </div>
+    <div class="form-group">
+        <label for="chromium_path">Chromium Path</label>
+        <input type="text" name="chromium_path" id="chromium_path" class="form-control" value="{{ config.chromium_path }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+</form>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!-- logs_monitoring.html - Version 1.0 -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Logs & Monitoring</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Data Files</h2>
+            <div id="data-files" class="border p-2">
+                <ul id="data-files-list"></ul>
+            </div>
+        </div>
+        <div class="col">
+            <h2>Log Content</h2>
+            <div id="log-content" class="border p-2" style="height: 300px; overflow-y: scroll;">
+            </div>
+        </div>
+        <div class="col">
+            <h2>System Information</h2>
+            <div id="system-info" class="border p-2">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function loadDataFiles() {
+    fetch('/logs_monitoring/data_files')
+        .then(response => response.json())
+        .then(files => {
+            const list = document.getElementById('data-files-list');
+            list.innerHTML = '';
+            files.forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="/logs_monitoring/data_file/${file}" target="_blank">${file}</a>`;
+                list.appendChild(listItem);
+            });
+        });
+}
+
+function loadLogContent() {
+    fetch('/logs_monitoring/log_content')
+        .then(response => response.json())
+        .then(logs => {
+            const logContent = document.getElementById('log-content');
+            logContent.innerHTML = logs.join('<br>');
+            logContent.scrollTop = logContent.scrollHeight;
+        });
+}
+
+function loadSystemInfo() {
+    fetch('/logs_monitoring/system_info')
+        .then(response => response.json())
+        .then(info => {
+            const systemInfo = document.getElementById('system-info');
+            systemInfo.innerHTML = `
+                <p>Platform: ${info.platform}</p>
+                <p>Release: ${info.platform_release}</p>
+                <p>Version: ${info.platform_version}</p>
+                <p>Architecture: ${info.architecture}</p>
+                <p>Hostname: ${info.hostname}</p>
+                <p>IP Address: ${info.ip_address}</p>
+                <p>CPU Usage: ${info.cpu}%</p>
+                <p>RAM Usage: ${info.ram}%</p>
+                <p>Disk Usage: ${info.disk}%</p>
+            `;
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDataFiles();
+    loadLogContent();
+    loadSystemInfo();
+    setInterval(loadLogContent, 5000);  // Refresh log content every 5 seconds
+});
+</script>
+
+{% endblock %}

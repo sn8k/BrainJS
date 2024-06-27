@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Language & Communication</h1>
+
+<div style="display: flex;">
+    <!-- Chatbot section -->
+    <div style="flex: 1; margin-right: 20px;">
+        <h2>Chatbot</h2>
+        <div id="response-box" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto;">
+            <!-- Réponses du chatbot apparaîtront ici -->
+        </div>
+        <textarea id="input-text" placeholder="Entrez votre texte ici..." style="width: 100%; height: 100px;"></textarea>
+        <button onclick="sendMessage()">Envoyer</button>
+        <input type="file" id="upload-file">
+        <button onclick="uploadFile()">Télécharger le fichier</button>
+    </div>
+
+    <!-- Dictionaries section -->
+    <div style="flex: 1;">
+        <h2>Dictionnaires Installés</h2>
+        <ul id="dictionary-list">
+            <!-- Liste des dictionnaires -->
+            {% for dictionary in dictionaries %}
+                <li>{{ dictionary }}</li>
+            {% endfor %}
+        </ul>
+        <input type="file" id="upload-dictionary">
+        <button onclick="uploadDictionary()">Ajouter un dictionnaire</button>
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    var inputText = document.getElementById('input-text').value;
+    fetch('/language_communication/process_text', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: inputText }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        var responseBox = document.getElementById('response-box');
+        responseBox.innerHTML += '<p>' + data.response + '</p>';
+        document.getElementById('input-text').value = '';
+    });
+}
+
+function uploadFile() {
+    var fileInput = document.getElementById('upload-file');
+    var formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    fetch('/language_communication/upload_file', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.status);
+    });
+}
+
+function uploadDictionary() {
+    var fileInput = document.getElementById('upload-dictionary');
+    var formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    fetch('/language_communication/upload_dictionary', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'Dictionary uploaded successfully') {
+            var dictionaryList = document.getElementById('dictionary-list');
+            dictionaryList.innerHTML += '<li>' + fileInput.files[0].name + '</li>';
+        }
+        alert(data.status);
+    });
+}
+</script>
+{% endblock %}

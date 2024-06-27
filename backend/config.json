@@ -1,0 +1,6 @@
+{
+    "data_dir": "../data",
+    "log_dir": "backend/logs",
+    "models_dir": "models",
+    "upload_dir": "upload"
+}
